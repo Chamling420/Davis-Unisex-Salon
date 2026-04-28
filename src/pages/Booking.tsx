@@ -89,9 +89,9 @@ export default function Booking() {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        status: 'pending',
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        status: 'Pending',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       };
 
       await addDoc(collection(db, 'appointments'), appointmentData);

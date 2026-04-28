@@ -50,7 +50,11 @@ export default function AdminDashboard() {
     const q = query(collection(db, 'appointments'));
     const unsubscribeAppointments = onSnapshot(q, (snapshot) => {
       const apps = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as any));
-      apps.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+      apps.sort((a, b) => {
+        const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : (typeof a.createdAt === 'string' ? new Date(a.createdAt).getTime() : Date.now());
+        const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : (typeof b.createdAt === 'string' ? new Date(b.createdAt).getTime() : Date.now());
+        return timeB - timeA;
+      });
       setAppointments(apps);
       setLoading(false);
     }, (error) => {
@@ -82,7 +86,7 @@ export default function AdminDashboard() {
     try {
       await updateDoc(doc(db, 'appointments', id), {
         status,
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString()
       });
     } catch (error) {
       handleFirestoreError(error, OperationType.UPDATE, `appointments/${id}`);
@@ -104,9 +108,9 @@ export default function AdminDashboard() {
         name: data.name,
         email: data.email || 'N/A',
         phone: data.phone,
-        status: 'approved', // Admin created ones are implicitly approved
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        status: 'Approved', // Admin created ones are implicitly approved
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       };
 
       await addDoc(collection(db, 'appointments'), appointmentData);
@@ -133,7 +137,7 @@ export default function AdminDashboard() {
           <p className="text-[11px] uppercase tracking-widest text-neutral-500 mb-12">Manage appointments and salon schedules.</p>
           
           <div className="flex flex-wrap gap-4 justify-center filter-buttons items-center">
-            {['all', 'pending', 'approved', 'Canceled'].map(f => (
+            {['all', 'Pending', 'Approved', 'Cancelled'].map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -201,8 +205,8 @@ export default function AdminDashboard() {
                       </td>
                       <td className="p-8">
                         <span className={`px-3 py-1 text-[9px] font-bold uppercase tracking-[0.2em] border ${
-                          app.status === 'approved' ? 'border-green-500/50 text-green-600 bg-green-50' :
-                          app.status === 'Canceled' ? 'border-red-500/50 text-red-600 bg-red-50' :
+                          app.status === 'Approved' ? 'border-green-500/50 text-green-600 bg-green-50' :
+                          app.status === 'Cancelled' ? 'border-red-500/50 text-red-600 bg-red-50' :
                           'border-yellow-500/50 text-yellow-600 bg-yellow-50'
                         }`}>
                           {app.status}
@@ -210,18 +214,18 @@ export default function AdminDashboard() {
                       </td>
                       <td className="p-8 text-right">
                         <div className="flex justify-end gap-4">
-                          {app.status !== 'approved' && (
+                          {app.status !== 'Approved' && (
                             <button
-                              onClick={() => handleUpdateStatus(app.id, 'approved', app.status)}
+                              onClick={() => handleUpdateStatus(app.id, 'Approved', app.status)}
                               className="text-green-600 hover:text-green-700 font-bold uppercase tracking-widest text-[9px] border border-green-200 px-3 py-2 hover:bg-green-50 transition-colors bg-blue-50"
                               title="Approve"
                             >
                               Approve
                             </button>
                           )}
-                          {app.status !== 'Canceled' && (
+                          {app.status !== 'Cancelled' && (
                             <button
-                              onClick={() => handleUpdateStatus(app.id, 'Canceled', app.status)}
+                              onClick={() => handleUpdateStatus(app.id, 'Cancelled', app.status)}
                               className="text-red-600 hover:text-red-700 font-bold uppercase tracking-widest text-[9px] border border-red-200 px-3 py-2 hover:bg-red-50 transition-colors bg-blue-50"
                               title="Cancel"
                             >

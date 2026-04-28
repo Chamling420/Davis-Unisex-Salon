@@ -49,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               email: firebaseUser.email || '',
               name: firebaseUser.displayName || '',
               phone: '',
-              createdAt: serverTimestamp()
+              createdAt: new Date().toISOString()
             });
           }
 

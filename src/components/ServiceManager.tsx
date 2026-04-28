@@ -65,14 +65,14 @@ export default function ServiceManager({ services, setServices }: ServiceManager
       if (editingId) {
         await updateDoc(doc(db, 'services', editingId), {
           ...data,
-          updatedAt: serverTimestamp(),
+          updatedAt: new Date().toISOString(),
         });
         setServices(services.map(s => s.id === editingId ? { ...s, ...data } : s));
       } else {
         const docRef = await addDoc(collection(db, 'services'), {
           ...data,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
         });
         setServices([...services, { id: docRef.id, ...data }]);
       }

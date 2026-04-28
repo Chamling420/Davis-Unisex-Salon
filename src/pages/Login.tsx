@@ -17,7 +17,6 @@ export default function Login() {
   }
 
   if (user) {
-    if (user.role === 'admin') return <Navigate to="/admin" replace />;
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -43,6 +42,8 @@ export default function Login() {
         setError('An account with this email already exists. Please sign in instead.');
       } else if (err.code === 'auth/weak-password') {
         setError('Password should be at least 6 characters.');
+      } else if (err.code === 'auth/operation-not-allowed') {
+        setError('Email/Password authentication is not enabled in Firebase. Please go to your Firebase Console -> Authentication -> Sign-in method, and enable "Email/Password".');
       } else {
         setError(err.message || 'Authentication failed');
       }
@@ -67,7 +68,11 @@ export default function Login() {
       await loginGuest();
       // No explicit navigation needed, user state change will trigger Navigate to /dashboard
     } catch (err: any) {
-      setError(err.message || 'Failed to continue as guest');
+      if (err.code === 'auth/operation-not-allowed') {
+        setError('Anonymous authentication is not enabled in Firebase. Please go to your Firebase Console -> Authentication -> Sign-in method, and enable "Anonymous".');
+      } else {
+        setError(err.message || 'Failed to continue as guest');
+      }
     }
   };
 

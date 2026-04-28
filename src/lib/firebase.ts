@@ -58,7 +58,10 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     operationType,
     path
   };
-  console.error('Firestore Error: ', JSON.stringify(errInfo));
-  // DO NOT throw errors synchronously from inside this handler, especially if called from onSnapshot callbacks,
-  // as it will crash the Firebase SDK with unhandled exceptions (e.g. ca9 ASSERTION FAILED).
+  const errJson = JSON.stringify(errInfo);
+  console.error('Firestore Error: ', errJson);
+  // Throw asynchronously to prevent crashing Firestore SDK's internal loop
+  setTimeout(() => {
+    throw new Error(errJson);
+  }, 0);
 }

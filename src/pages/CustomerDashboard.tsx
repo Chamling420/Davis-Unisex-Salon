@@ -39,12 +39,12 @@ export default function CustomerDashboard() {
   }, [user]);
 
   const handleCancel = async (id: string, currentStatus: string) => {
-    if (currentStatus === 'Canceled') return;
+    if (currentStatus === 'Cancelled') return;
     
     try {
       await updateDoc(doc(db, 'appointments', id), {
-        status: 'Canceled',
-        updatedAt: serverTimestamp()
+        status: 'Cancelled',
+        updatedAt: new Date().toISOString()
       });
     } catch (error) {
       handleFirestoreError(error, OperationType.UPDATE, `appointments/${id}`);
@@ -66,7 +66,7 @@ export default function CustomerDashboard() {
         name: editForm.name,
         date: editForm.date,
         time: editForm.time,
-        updatedAt: serverTimestamp()
+        updatedAt: new Date().toISOString()
       });
       setEditingAppointment(null);
     } catch (error) {
@@ -79,7 +79,6 @@ export default function CustomerDashboard() {
 
   if (authLoading || loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (user.role === 'admin') return <Navigate to="/admin" replace />;
 
   return (
     <div className="py-24 px-4 bg-blue-50 min-h-[80vh] border-b border-gold-500/20">
@@ -110,8 +109,8 @@ export default function CustomerDashboard() {
                     <div className="flex-grow">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`px-3 py-1 text-[9px] font-bold uppercase tracking-[0.2em] border ${
-                          app.status === 'approved' ? 'border-green-500/50 text-green-600 bg-green-50' :
-                          app.status === 'Canceled' ? 'border-red-500/50 text-red-600 bg-red-50' :
+                          app.status === 'Approved' ? 'border-green-500/50 text-green-600 bg-green-50' :
+                          app.status === 'Cancelled' ? 'border-red-500/50 text-red-600 bg-red-50' :
                           'border-yellow-500/50 text-yellow-600 bg-yellow-50'
                         }`}>
                           {app.status}
@@ -131,7 +130,7 @@ export default function CustomerDashboard() {
                       </div>
                     </div>
                     
-                    {app.status !== 'Canceled' && (
+                    {app.status !== 'Cancelled' && (
                       <div className="flex flex-col gap-2 md:w-auto w-full">
                         <button 
                           onClick={() => handleOpenEdit(app)}
