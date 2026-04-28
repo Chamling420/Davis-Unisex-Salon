@@ -130,7 +130,7 @@ export default function CustomerDashboard() {
                       </div>
                     </div>
                     
-                    {app.status !== 'Cancelled' && (
+                    {(app.status !== 'Cancelled' && app.status !== 'Approved') && (
                       <div className="flex flex-col gap-2 md:w-auto w-full">
                         <button 
                           onClick={() => handleOpenEdit(app)}
