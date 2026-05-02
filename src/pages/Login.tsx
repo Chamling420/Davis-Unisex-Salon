@@ -77,38 +77,38 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-blue-50 border-b border-gold-500/20">
-      <div className="max-w-md w-full bg-blue-50 p-10 lg:p-14 border border-gold-500/20 shadow-lg relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-50 px-4">
-          <Scissors className="w-8 h-8 text-gold-500" />
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 bg-slate-950 border-b border-blue-500/20">
+      <div className="max-w-md w-full bg-slate-950 p-10 lg:p-14 border border-blue-500/20 shadow-lg relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950 px-4">
+          <Scissors className="w-8 h-8 text-blue-500" />
         </div>
         
         <div className="text-center mb-10 pt-4">
-          <h2 className="text-3xl font-serif text-neutral-900 mb-4">{isSignUp ? 'Create Account' : 'Welcome Back'}</h2>
-          <p className="text-[10px] uppercase tracking-widest text-neutral-500">
+          <h2 className="text-3xl font-serif text-slate-100 mb-4">{isSignUp ? 'Create Account' : 'Welcome Back'}</h2>
+          <p className="text-[10px] uppercase tracking-widest text-slate-400">
             {isSignUp ? 'Sign up to book appointments' : 'Sign in to your account'}
           </p>
         </div>
 
         {error && (
-          <div className="bg-red-500/10 text-red-400 p-4 border border-red-500/20 text-[10px] uppercase tracking-widest mb-8">
+          <div className="bg-blue-500/100/10 text-blue-400 p-4 border border-blue-500/20 text-[10px] uppercase tracking-widest mb-8">
             {error}
           </div>
         )}
 
         <form onSubmit={handleEmailAuth} className="space-y-6 mb-4">
           <div>
-             <label className="block text-[10px] uppercase tracking-widest text-neutral-500 mb-2">Email</label>
-             <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-transparent border-b border-neutral-300 py-2 focus:outline-none focus:border-gold-500" required />
+             <label className="block text-[10px] uppercase tracking-widest text-slate-400 mb-2">Email</label>
+             <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-transparent border-b border-slate-800 py-2 focus:outline-none focus:border-blue-500" required />
           </div>
           <div>
-             <label className="block text-[10px] uppercase tracking-widest text-neutral-500 mb-2">Password</label>
-             <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-transparent border-b border-neutral-300 py-2 focus:outline-none focus:border-gold-500" required />
+             <label className="block text-[10px] uppercase tracking-widest text-slate-400 mb-2">Password</label>
+             <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-transparent border-b border-slate-800 py-2 focus:outline-none focus:border-blue-500" required />
           </div>
           <button
             type="submit"
             disabled={isLoggingIn}
-            className="w-full bg-neutral-900 text-white font-bold uppercase tracking-[0.1em] text-[11px] py-4 hover:bg-neutral-800 transition-colors disabled:opacity-50"
+            className="w-full bg-blue-600 text-white font-bold uppercase tracking-[0.1em] text-[11px] py-4 hover:bg-blue-700 transition-colors disabled:opacity-50"
           >
             {isLoggingIn ? 'Please wait...' : (isSignUp ? 'Sign Up' : 'Sign In')}
           </button>
@@ -117,7 +117,7 @@ export default function Login() {
         <div className="text-center mb-8">
           <button 
             onClick={() => setIsSignUp(!isSignUp)}
-            className="text-[10px] uppercase tracking-[0.1em] text-neutral-500 hover:text-gold-500 transition-colors"
+            className="text-[10px] uppercase tracking-[0.1em] text-slate-400 hover:text-blue-500 transition-colors"
           >
             {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
           </button>
@@ -126,16 +126,16 @@ export default function Login() {
         <div className="space-y-6">
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-200"></div>
+              <div className="w-full border-t border-slate-800"></div>
             </div>
             <div className="relative flex justify-center">
-              <span className="px-4 bg-blue-50 text-[10px] uppercase tracking-[0.2em] text-neutral-400">Or continue with</span>
+              <span className="px-4 bg-slate-950 text-[10px] uppercase tracking-[0.2em] text-slate-400">Or continue with</span>
             </div>
           </div>
 
           <button
             onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-4 border border-neutral-300 bg-blue-50 text-neutral-700 py-4 hover:border-gold-500 hover:text-gold-500 hover:bg-blue-100 transition-colors text-[11px] font-bold uppercase tracking-[0.1em]"
+            className="w-full flex items-center justify-center gap-4 border border-slate-800 bg-slate-950 text-slate-300 py-4 hover:border-blue-500 hover:text-blue-500 hover:bg-slate-900 transition-colors text-[11px] font-bold uppercase tracking-[0.1em]"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -149,7 +149,7 @@ export default function Login() {
 
           <button
             onClick={handleGuestLogin}
-            className="w-full bg-gold-500 text-black py-4 font-bold uppercase tracking-[0.1em] text-[11px] hover:bg-gold-400 transition-colors"
+            className="w-full bg-blue-500 text-white py-4 font-bold uppercase tracking-[0.1em] text-[11px] hover:bg-blue-700 transition-colors"
           >
             Continue as Guest
           </button>

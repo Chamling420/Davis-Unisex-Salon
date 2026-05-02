@@ -95,6 +95,24 @@ export default function Booking() {
       };
 
       await addDoc(collection(db, 'appointments'), appointmentData);
+      
+      window.alert("Appointment submitted successfully!");
+      
+      const phoneNumber = "9779822196987";
+      const message = `*Appointment Booking Received*\n\n*Name:* ${data.name}\n*Date:* ${data.date}\n*Time:* ${data.time}\n*Service:* ${selectedService?.name || 'Service'}`;
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+      try {
+        const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+          console.error("WhatsApp popup blocked");
+          alert("Could not open WhatsApp automatically. Please make sure popups are enabled.");
+        }
+      } catch (waError) {
+        console.error("WhatsApp Error:", waError);
+        alert("Failed to send WhatsApp notification. Please contact admin directly.");
+      }
+
       setSuccess(true);
     } catch (error) {
       handleFirestoreError(error, OperationType.CREATE, 'appointments');
@@ -106,21 +124,21 @@ export default function Booking() {
   if (success) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-        <div className="bg-blue-50 p-8 rounded-xl shadow border border-neutral-200 text-center max-w-md">
-          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="bg-slate-950 p-8 rounded-xl shadow border border-slate-800 text-center max-w-md">
+          <div className="w-16 h-16 bg-green-100 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold uppercase text-neutral-900 mb-2">Booking Confirmed</h2>
-          <p className="text-neutral-600 mb-8">
+          <h2 className="text-2xl font-bold uppercase text-slate-100 mb-2">Booking Confirmed</h2>
+          <p className="text-slate-400 mb-8">
             Thank you for choosing Davis Unisex Salon. We have received your appointment request.
           </p>
           <div className="space-y-4">
-            <button onClick={() => navigate('/dashboard')} className="w-full bg-neutral-900 text-white py-3 rounded font-bold uppercase transition hover:bg-neutral-800">
+            <button onClick={() => navigate('/dashboard')} className="w-full bg-blue-600 text-white py-3 rounded font-bold uppercase transition hover:bg-blue-700">
               View My Appointments
             </button>
-            <button onClick={() => navigate('/')} className="w-full text-neutral-600 hover:text-neutral-900 font-medium">
+            <button onClick={() => navigate('/')} className="w-full text-slate-400 hover:text-slate-100 font-medium">
               Back to Home
             </button>
           </div>
@@ -130,93 +148,93 @@ export default function Booking() {
   }
 
   return (
-    <div className="py-24 px-4 bg-blue-50 min-h-[80vh] border-b border-gold-500/20">
+    <div className="py-24 px-4 bg-slate-950 min-h-[80vh] border-b border-blue-500/20">
       <div className="max-w-2xl mx-auto">
         <div className="mb-12">
-          <h1 className="text-4xl font-serif text-neutral-900 mb-4">Reservations</h1>
-          <p className="text-[11px] uppercase tracking-[0.2em] text-neutral-500">
+          <h1 className="text-4xl font-serif text-slate-100 mb-4">Reservations</h1>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
             Secure your session with our master barbers and stylists.
           </p>
         </div>
 
-        <div className="bg-blue-50 p-10 lg:p-14 border border-gold-500/20 shadow-sm">
+        <div className="bg-slate-950 p-10 lg:p-14 border border-blue-500/20 shadow-sm">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
             <div className="grid md:grid-cols-2 gap-x-8 gap-y-10">
               <div className="md:col-span-2">
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Service</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Service</label>
                 <select 
                   {...register('serviceId')} 
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors appearance-none"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors appearance-none"
                 >
-                  <option value="" className="bg-blue-50">-- Select Service --</option>
+                  <option value="" className="bg-slate-950">-- Select Service --</option>
                   {services.map(s => (
-                    <option key={s.id} value={s.id} className="bg-blue-50">{s.name}</option>
+                    <option key={s.id} value={s.id} className="bg-slate-950">{s.name}</option>
                   ))}
                 </select>
-                {errors.serviceId && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.serviceId.message}</p>}
+                {errors.serviceId && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.serviceId.message}</p>}
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Date</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Date</label>
                 <input 
                   type="date" 
                   {...register('date')} 
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors placeholder:text-neutral-400"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                 />
-                {errors.date && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.date.message}</p>}
+                {errors.date && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.date.message}</p>}
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Time</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Time</label>
                 <select 
                   {...register('time')} 
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors appearance-none"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors appearance-none"
                 >
-                  <option value="" className="bg-blue-50">-- Select Time --</option>
+                  <option value="" className="bg-slate-950">-- Select Time --</option>
                   {['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'].map(t => (
-                    <option key={t} value={t} className="bg-blue-50">{t}</option>
+                    <option key={t} value={t} className="bg-slate-950">{t}</option>
                   ))}
                 </select>
-                {errors.time && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.time.message}</p>}
+                {errors.time && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.time.message}</p>}
               </div>
 
               <div className="md:col-span-2 pt-6">
-                <h3 className="font-serif text-xl text-neutral-900 mb-2">Guest Details</h3>
-                <div className="h-px w-full bg-neutral-200" />
+                <h3 className="font-serif text-xl text-slate-100 mb-2">Guest Details</h3>
+                <div className="h-px w-full bg-slate-900" />
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Full Name</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Full Name</label>
                 <input 
                   type="text" 
                   {...register('name')} 
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors placeholder:text-neutral-400"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                   placeholder="Alexander Davis"
                 />
-                {errors.name && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.name.message}</p>}
+                {errors.name && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.name.message}</p>}
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Contact Number</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Contact Number</label>
                 <input 
                   type="tel" 
                   {...register('phone')} 
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors placeholder:text-neutral-400"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                   placeholder="+1 234 567 890"
                 />
-                {errors.phone && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.phone.message}</p>}
+                {errors.phone && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.phone.message}</p>}
               </div>
               
               <div className="md:col-span-2">
-                <label className="block text-[10px] uppercase tracking-[0.1em] text-gold-500 mb-2">Email Address</label>
+                <label className="block text-[10px] uppercase tracking-[0.1em] text-blue-500 mb-2">Email Address</label>
                 <input 
                   type="email" 
                   {...register('email')} 
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors placeholder:text-neutral-400"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors placeholder:text-slate-400"
                   placeholder="alexander@example.com"
                 />
-                {errors.email && <p className="text-red-500 text-[10px] uppercase mt-2 tracking-widest">{errors.email.message}</p>}
+                {errors.email && <p className="text-blue-500 text-[10px] uppercase mt-2 tracking-widest">{errors.email.message}</p>}
               </div>
             </div>
 
@@ -224,14 +242,14 @@ export default function Booking() {
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-gold-500 text-black py-4 font-bold uppercase tracking-[0.1em] text-[12px] hover:bg-gold-400 transition-colors disabled:opacity-50"
+                className="w-full bg-blue-500 text-white py-4 font-bold uppercase tracking-[0.1em] text-[12px] hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
                 {loading ? 'Processing...' : 'Confirm Booking'}
               </button>
             </div>
             {!user && (
-              <p className="text-center text-[10px] uppercase tracking-[0.1em] text-neutral-500 mt-6 pt-6 border-t border-neutral-100">
-                You are booking as a guest. <a href="/login" className="text-gold-500 hover:text-gold-400 underline">Sign in</a> to manage appointments.
+              <p className="text-center text-[10px] uppercase tracking-[0.1em] text-slate-400 mt-6 pt-6 border-t border-slate-800">
+                You are booking as a guest. <a href="/login" className="text-blue-500 hover:text-blue-400 underline">Sign in</a> to manage appointments.
               </p>
             )}
           </form>

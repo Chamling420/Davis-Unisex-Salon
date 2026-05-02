@@ -81,50 +81,50 @@ export default function CustomerDashboard() {
   if (!user) return <Navigate to="/login" replace />;
 
   return (
-    <div className="py-24 px-4 bg-blue-50 min-h-[80vh] border-b border-gold-500/20">
+    <div className="py-24 px-4 bg-slate-950 min-h-[80vh] border-b border-blue-500/20">
       <div className="max-w-4xl mx-auto">
         <div className="mb-16">
-          <h1 className="text-4xl font-serif text-neutral-900 mb-4">My Dashboard</h1>
-          <p className="text-[11px] uppercase tracking-widest text-neutral-500">Welcome back, {user.displayName || 'Guest'}. Manage your appointments below.</p>
+          <h1 className="text-4xl font-serif text-slate-100 mb-4">My Dashboard</h1>
+          <p className="text-[11px] uppercase tracking-widest text-slate-400">Welcome back, {user.displayName || 'Guest'}. Manage your appointments below.</p>
         </div>
 
-        <div className="bg-blue-50 border border-gold-500/20 overflow-hidden shadow-sm">
-          <div className="border-b border-gold-500/20 p-8">
-            <h2 className="text-xl font-serif text-neutral-900 flex items-center gap-3">
-              <Calendar className="w-5 h-5 text-gold-500" />
+        <div className="bg-slate-950 border border-blue-500/20 overflow-hidden shadow-sm">
+          <div className="border-b border-blue-500/20 p-8">
+            <h2 className="text-xl font-serif text-slate-100 flex items-center gap-3">
+              <Calendar className="w-5 h-5 text-blue-500" />
               Appointment History
             </h2>
           </div>
           
           <div className="p-8">
             {appointments.length === 0 ? (
-              <div className="text-center py-20 text-neutral-500 text-[11px] uppercase tracking-[0.2em] leading-loose">
+              <div className="text-center py-20 text-slate-400 text-[11px] uppercase tracking-[0.2em] leading-loose">
                 <p>You have no appointments yet.</p>
-                <a href="/book" className="text-gold-500 hover:text-gold-400 mt-4 inline-block font-bold">Book an appointment</a>
+                <a href="/book" className="text-blue-500 hover:text-blue-400 mt-4 inline-block font-bold">Book an appointment</a>
               </div>
             ) : (
               <div className="space-y-6">
                 {appointments.map(app => (
-                  <div key={app.id} className="border border-neutral-200 p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:border-gold-500/40 transition-colors bg-blue-100">
+                  <div key={app.id} className="border border-slate-800 p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 hover:border-blue-500/40 transition-colors bg-slate-900">
                     <div className="flex-grow">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`px-3 py-1 text-[9px] font-bold uppercase tracking-[0.2em] border ${
-                          app.status === 'Approved' ? 'border-green-500/50 text-green-600 bg-green-50' :
-                          app.status === 'Cancelled' ? 'border-red-500/50 text-red-600 bg-red-50' :
-                          'border-yellow-500/50 text-yellow-600 bg-yellow-50'
+                          app.status === 'Approved' ? 'border-green-500/50 text-green-400 bg-green-500/10' :
+                          app.status === 'Cancelled' ? 'border-blue-500/50 text-blue-400 bg-blue-500/10' :
+                          'border-yellow-500/50 text-yellow-400 bg-yellow-500/10'
                         }`}>
                           {app.status}
                         </span>
-                        <h3 className="font-serif text-lg text-neutral-900">{app.serviceName}</h3>
+                        <h3 className="font-serif text-lg text-slate-100">{app.serviceName}</h3>
                       </div>
                       
-                      <div className="flex flex-wrap items-center gap-6 text-[10px] uppercase tracking-[0.1em] text-neutral-500">
+                      <div className="flex flex-wrap items-center gap-6 text-[10px] uppercase tracking-[0.1em] text-slate-400">
                         <div className="flex items-center gap-2">
-                          <Clock className="w-3 h-3 text-gold-500" />
+                          <Clock className="w-3 h-3 text-blue-500" />
                           <span>{app.date} at {app.time}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Scissors className="w-3 h-3 text-gold-500" />
+                          <Scissors className="w-3 h-3 text-blue-500" />
                           <span>Davis Unisex Salon</span>
                         </div>
                       </div>
@@ -134,13 +134,13 @@ export default function CustomerDashboard() {
                       <div className="flex flex-col gap-2 md:w-auto w-full">
                         <button 
                           onClick={() => handleOpenEdit(app)}
-                          className="text-blue-600 hover:text-blue-700 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold border border-blue-200 bg-blue-50 p-3 w-full md:w-auto justify-center hover:bg-blue-100 transition-colors group"
+                          className="text-slate-300 hover:text-neutral-200 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold border border-slate-800 bg-slate-950 p-3 w-full md:w-auto justify-center hover:bg-slate-900 transition-colors group"
                         >
                           <Edit2 className="w-4 h-4 group-hover:scale-110 transition-transform" /> Edit
                         </button>
                         <button 
                           onClick={() => handleCancel(app.id, app.status)}
-                          className="text-red-500 hover:text-red-600 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold border border-red-500 bg-red-50 p-3 w-full md:w-auto justify-center hover:bg-red-100 transition-colors group"
+                          className="text-blue-400 hover:text-blue-300 flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold border border-blue-500 bg-slate-900 p-3 w-full md:w-auto justify-center hover:bg-blue-500/20 transition-colors group"
                         >
                           <XCircle className="w-4 h-4 group-hover:scale-110 transition-transform" /> Cancel
                         </button>
@@ -155,13 +155,13 @@ export default function CustomerDashboard() {
       </div>
 
       {editingAppointment && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/60 backdrop-blur-sm">
-          <div className="bg-blue-50 border border-gold-500/20 max-w-lg w-full">
-            <div className="border-b border-gold-500/20 px-8 py-6 flex justify-between items-center">
-              <h2 className="text-2xl font-serif text-neutral-900">Edit Appointment</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+          <div className="bg-slate-950 border border-blue-500/20 max-w-lg w-full">
+            <div className="border-b border-blue-500/20 px-8 py-6 flex justify-between items-center">
+              <h2 className="text-2xl font-serif text-slate-100">Edit Appointment</h2>
               <button 
                 onClick={() => setEditingAppointment(null)} 
-                className="text-neutral-500 hover:text-neutral-900 transition-colors"
+                className="text-slate-400 hover:text-slate-100 transition-colors"
                 title="Close"
               >
                 <X className="w-6 h-6" />
@@ -170,35 +170,35 @@ export default function CustomerDashboard() {
             
             <form onSubmit={handleSaveEdit} className="p-8 space-y-6">
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-2">Full Name</label>
+                <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Full Name</label>
                 <input 
                   type="text" 
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                   required
-                  className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors"
+                  className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-2">Date</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Date</label>
                   <input 
                     type="date" 
                     value={editForm.date}
                     onChange={(e) => setEditForm({ ...editForm, date: e.target.value })}
                     required
                     min={new Date().toISOString().split('T')[0]}
-                    className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors"
+                    className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 mb-2">Time</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Time</label>
                   <select 
                     value={editForm.time}
                     onChange={(e) => setEditForm({ ...editForm, time: e.target.value })}
                     required
-                    className="w-full py-3 bg-transparent border-b border-neutral-200 text-neutral-900 text-sm outline-none focus:border-gold-500 transition-colors"
+                    className="w-full py-3 bg-transparent border-b border-slate-800 text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors"
                   >
                     <option value="" disabled>Select Time</option>
                     <option value="09:00">09:00 AM</option>
@@ -218,14 +218,14 @@ export default function CustomerDashboard() {
                 <button 
                   type="button" 
                   onClick={() => setEditingAppointment(null)}
-                  className="px-8 py-4 bg-transparent border border-neutral-300 text-neutral-600 font-bold uppercase tracking-[0.1em] text-[11px] hover:border-neutral-400 transition-colors"
+                  className="px-8 py-4 bg-transparent border border-slate-800 text-slate-400 font-bold uppercase tracking-[0.1em] text-[11px] hover:border-neutral-400 transition-colors"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit" 
                   disabled={isSaving}
-                  className="px-8 py-4 bg-neutral-900 text-white font-bold uppercase tracking-[0.1em] text-[11px] hover:bg-neutral-800 disabled:opacity-70 transition-all"
+                  className="px-8 py-4 bg-blue-600 text-white font-bold uppercase tracking-[0.1em] text-[11px] hover:bg-blue-700 disabled:opacity-70 transition-all"
                 >
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>

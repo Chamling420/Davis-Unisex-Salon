@@ -46,6 +46,16 @@
         "updatedAt": { "type": "number" }
       },
       "required": ["name", "price", "duration", "createdAt", "updatedAt"]
+    },
+    "GalleryImage": {
+      "title": "Gallery Image",
+      "description": "Image in the home page gallery",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "uploadedAt": { "type": "number" }
+      },
+      "required": ["url", "uploadedAt"]
     }
   },
   "firestore": {
@@ -60,6 +70,10 @@
     "/services/{serviceId}": {
       "schema": { "$ref": "#/entities/Service" },
       "description": "Available salon services managed by admin"
+    },
+    "/gallery/{imageId}": {
+      "schema": { "$ref": "#/entities/GalleryImage" },
+      "description": "Gallery images managed by admin"
     }
   }
 }

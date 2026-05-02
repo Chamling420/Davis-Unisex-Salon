@@ -3,17 +3,9 @@
 @theme {
   --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-serif: "Georgia", serif;
-  
-  --color-gold-400: #e8c658;
-  --color-gold-500: #D4AF37;
-  --color-gold-600: #b5942f;
-  --color-gold-700: #917522;
-  
-  --color-neutral-900: #0a0a0a;
-  --color-neutral-800: #141414;
 }
 
 body {
-  background-color: lightblue;
-  color: var(--color-neutral-900);
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-100);
 }

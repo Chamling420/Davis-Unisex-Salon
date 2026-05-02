@@ -6,10 +6,8 @@ service cloud.firestore {
       return request.auth != null && (
         request.auth.uid == 'f8RovjSmyrWfPNjjnsDX9VJ3qPE3' ||
         request.auth.uid == 'nQDE2c9yUfXg4s7uPqYhW2x7bWz2' ||
-        ('email' in request.auth.token && (
-          request.auth.token.email == 'diwashmessi9@gmail.com' ||
-          request.auth.token.email == 'bibekthapaliya001@gmail.com'
-        ))
+        (request.auth.token.email == 'diwashmessi9@gmail.com') ||
+        (request.auth.token.email == 'bibekthapaliya001@gmail.com')
       );
     }
     
@@ -23,15 +21,22 @@ service cloud.firestore {
     
     // Appointments
     match /appointments/{appointmentId} {
-      allow read, create, update, delete: if isAdmin();
+      allow read, write: if isAdmin();
       allow list: if request.auth != null && request.auth.uid == resource.data.userId;
-      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow get: if request.auth != null && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
       allow update: if request.auth != null && request.auth.uid == resource.data.userId && resource.data.status != 'Approved';
+      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
     }
     
     // Services
     match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    // Gallery
+    match /gallery/{imageId} {
       allow read: if true;
       allow write: if isAdmin();
     }

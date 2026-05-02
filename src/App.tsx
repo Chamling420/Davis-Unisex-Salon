@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="flex flex-col min-h-screen bg-blue-50 text-neutral-900 font-sans max-w-[1440px] mx-auto border-x border-gold-500/20">
+        <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans max-w-[1440px] mx-auto border-x border-blue-500/20">
           <Navbar />
           <main className="flex-grow">
             <Routes>

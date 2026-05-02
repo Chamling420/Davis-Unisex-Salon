@@ -21,13 +21,13 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-blue-50 border-b border-gold-500/20 text-neutral-900">
+    <nav className="sticky top-0 z-50 bg-slate-950 border-b border-blue-500/20 text-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-24">
           <div className="flex items-center">
             <Link to="/" className="flex items-center group">
-              <div className="font-serif text-gold-500 text-3xl font-bold tracking-widest group-hover:opacity-80 transition-opacity">D | S</div>
-              <span className="font-serif text-lg tracking-widest ml-4 border-l border-gold-500/20 pl-4 text-neutral-900 uppercase opacity-90">Davis<br/><span className="text-gold-500 text-sm">Unisex Salon</span></span>
+              <div className="font-serif text-blue-500 text-3xl font-bold tracking-widest group-hover:opacity-80 transition-opacity">D | S</div>
+              <span className="font-serif text-lg tracking-widest ml-4 border-l border-blue-500/20 pl-4 text-slate-100 uppercase opacity-90">Davis<br/><span className="text-blue-500 text-sm">Unisex Salon</span></span>
             </Link>
           </div>
 
@@ -36,42 +36,42 @@ export default function Navbar() {
             <div className="flex gap-8 items-center">
               {navLinks.map((link) => (
                 link.isSpecial ? (
-                  <Link key={link.name} to={link.path} className="flex items-center gap-1.5 text-[10px] font-bold text-gold-500 bg-gold-500/10 px-3 py-1.5 border border-gold-500/20 hover:bg-gold-500/20 transition-all uppercase tracking-[0.15em] rounded">
+                  <Link key={link.name} to={link.path} className="flex items-center gap-1.5 text-[10px] font-bold text-blue-500 bg-blue-500/10 px-3 py-1.5 border border-blue-500/20 hover:bg-blue-500/20 transition-all uppercase tracking-[0.15em] rounded">
                     <Shield className="w-3 h-3" />
                     {link.name}
                   </Link>
                 ) : link.path.startsWith('/#') ? (
-                  <a key={link.name} href={link.path} className="text-[11px] font-medium text-neutral-900 opacity-70 hover:opacity-100 hover:text-gold-500 transition-colors uppercase tracking-[0.15em]">
+                  <a key={link.name} href={link.path} className="text-[11px] font-medium text-slate-100 opacity-70 hover:opacity-100 hover:text-blue-500 transition-colors uppercase tracking-[0.15em]">
                     {link.name}
                   </a>
                 ) : (
-                  <Link key={link.name} to={link.path} className="text-[11px] font-medium text-neutral-900 opacity-70 hover:opacity-100 hover:text-gold-500 transition-colors uppercase tracking-[0.15em]">
+                  <Link key={link.name} to={link.path} className="text-[11px] font-medium text-slate-100 opacity-70 hover:opacity-100 hover:text-blue-500 transition-colors uppercase tracking-[0.15em]">
                     {link.name}
                   </Link>
                 )
               ))}
             </div>
             
-            <div className="flex items-center gap-6 border-l border-gold-500/20 pl-8">
+            <div className="flex items-center gap-6 border-l border-blue-500/20 pl-8">
               {user ? (
                 <div className="relative group">
-                  <button className="flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] opacity-70 hover:opacity-100 hover:text-gold-500 transition-colors">
+                  <button className="flex items-center gap-2 text-[11px] uppercase tracking-[0.15em] opacity-70 hover:opacity-100 hover:text-blue-500 transition-colors">
                     <User className="h-4 w-4" />
                     <span>{user.displayName || 'Login'}</span>
                   </button>
-                  <div className="absolute right-0 w-48 mt-2 py-4 bg-blue-50 border border-gold-500/20 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  <div className="absolute right-0 w-48 mt-2 py-4 bg-slate-950 border border-blue-500/20 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                     {!(user.role === 'admin' && isLoginPage) && (
-                      <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} className="block px-6 py-2 text-[11px] text-neutral-900 opacity-70 hover:bg-blue-100 hover:opacity-100 hover:text-gold-500 uppercase tracking-[0.15em]">
+                      <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} className="block px-6 py-2 text-[11px] text-slate-100 opacity-70 hover:bg-slate-900 hover:opacity-100 hover:text-blue-500 uppercase tracking-[0.15em]">
                         {user.role === 'admin' ? 'Admin Portal' : 'My Bookings'}
                       </Link>
                     )}
-                    <button onClick={logout} className="block w-full text-left px-6 py-2 text-[11px] text-neutral-900 opacity-70 hover:bg-blue-100 hover:opacity-100 hover:text-red-400 uppercase tracking-[0.15em] mt-2 border-t border-gold-500/10 pt-4">Sign Out</button>
+                    <button onClick={logout} className="block w-full text-left px-6 py-2 text-[11px] text-slate-100 opacity-70 hover:bg-slate-900 hover:opacity-100 hover:text-blue-400 uppercase tracking-[0.15em] mt-2 border-t border-blue-500/10 pt-4">Sign Out</button>
                   </div>
                 </div>
               ) : (
-                <Link to="/login" className="text-[11px] font-medium text-neutral-900 opacity-70 hover:opacity-100 hover:text-gold-500 transition-colors uppercase tracking-[0.15em]">Sign In</Link>
+                <Link to="/login" className="text-[11px] font-medium text-slate-100 opacity-70 hover:opacity-100 hover:text-blue-500 transition-colors uppercase tracking-[0.15em]">Sign In</Link>
               )}
-              <Link to="/book" className="bg-gold-500 text-black px-8 py-3 text-[12px] font-bold hover:bg-gold-400 transition-colors uppercase tracking-[0.1em]">
+              <Link to="/book" className="bg-blue-500 text-white px-8 py-3 text-[12px] font-bold hover:bg-blue-700 transition-colors uppercase tracking-[0.1em]">
                 Book Now
               </Link>
             </div>
@@ -80,13 +80,13 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <div className="flex items-center md:hidden gap-4">
              {!user && (
-               <Link to="/book" className="bg-gold-500 text-neutral-900 px-4 py-2 rounded text-sm font-bold shadow hover:bg-gold-400 transition-colors uppercase tracking-wider">
+               <Link to="/book" className="bg-blue-500 text-white px-4 py-2 rounded text-sm font-bold shadow hover:bg-blue-700 transition-colors uppercase tracking-wider">
                  Book
                </Link>
              )}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-neutral-500 hover:text-neutral-900"
+              className="text-slate-400 hover:text-slate-100"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -101,16 +101,16 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-gold-500/20 overflow-hidden"
+            className="md:hidden border-t border-blue-500/20 overflow-hidden"
           >
-            <div className="px-4 py-6 space-y-4 bg-blue-50">
+            <div className="px-4 py-6 space-y-4 bg-slate-950">
               {navLinks.map((link) => (
                 link.isSpecial ? (
                   <Link
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-2 text-base font-bold text-gold-500 uppercase tracking-widest"
+                    className="flex items-center gap-2 text-base font-bold text-blue-500 uppercase tracking-widest"
                   >
                     <Shield className="w-4 h-4" />
                     {link.name}
@@ -120,7 +120,7 @@ export default function Navbar() {
                     key={link.name}
                     href={link.path}
                     onClick={() => setIsOpen(false)}
-                    className="block text-base font-medium text-neutral-700 hover:text-gold-500 uppercase tracking-widest"
+                    className="block text-base font-medium text-slate-300 hover:text-blue-500 uppercase tracking-widest"
                   >
                     {link.name}
                   </a>
@@ -129,24 +129,24 @@ export default function Navbar() {
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className="block text-base font-medium text-neutral-700 hover:text-gold-500 uppercase tracking-widest"
+                    className="block text-base font-medium text-slate-300 hover:text-blue-500 uppercase tracking-widest"
                   >
                     {link.name}
                   </Link>
                 )
               ))}
-              <hr className="border-gold-500/20" />
+              <hr className="border-blue-500/20" />
               {user ? (
                 <>
                   {!(user.role === 'admin' && isLoginPage) && (
-                    <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} onClick={() => setIsOpen(false)} className="block text-base font-medium text-gold-500 uppercase tracking-widest">
+                    <Link to={user.role === 'admin' ? '/admin' : '/dashboard'} onClick={() => setIsOpen(false)} className="block text-base font-medium text-blue-500 uppercase tracking-widest">
                       {user.role === 'admin' ? 'Admin Portal' : 'My Bookings'}
                     </Link>
                   )}
-                  <button onClick={() => { logout(); setIsOpen(false); }} className="block w-full text-left text-base font-medium text-red-400 uppercase tracking-widest">Sign Out</button>
+                  <button onClick={() => { logout(); setIsOpen(false); }} className="block w-full text-left text-base font-medium text-blue-400 uppercase tracking-widest">Sign Out</button>
                 </>
               ) : (
-                <Link to="/login" onClick={() => setIsOpen(false)} className="block text-base font-medium text-neutral-700 hover:text-gold-500 uppercase tracking-widest">Sign In</Link>
+                <Link to="/login" onClick={() => setIsOpen(false)} className="block text-base font-medium text-slate-300 hover:text-blue-500 uppercase tracking-widest">Sign In</Link>
               )}
             </div>
           </motion.div>
