@@ -95,7 +95,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-6xl md:text-[90px] leading-[0.9] font-serif tracking-tight text-slate-100 mb-6">
-              Davis<br/><span className="text-blue-500">Unisex</span> Salon
+              Davis<br/><span className="text-blue-500">Unisex Salon</span>
             </h1>
             <p className="text-sm md:text-lg tracking-[0.3em] uppercase text-slate-400 mb-12">
               Style. Confidence. Transformation.
